@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>exercice</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body id='homepage'>
+
+<h1 id='title'>TODOS</h1>
+<form>
+	<div>Ceci est un tableau de taches</div>
+	<ul>
+		<ol id='tache'>
+		</ol>
+	</ul>
+</form>
+
+<script type="text/javascript">
+	var i = 0;
+
+	function giveElement()
+	{
+		localStorage.setItem(i = giveKey(i), document.getElementById('add').value); 
+		console.log(localStorage.getItem(i)); //test
+		console.log(i); //test
+		window.location.reload()
+		return (i++);
+	}
+
+	function getKey()
+	{
+		var index = 0
+		var val = document.getElementById('delete').value;
+		while (val != localStorage.getItem(index))
+			{
+				index++;
+			}
+		return (index); 
+	}
+
+	function removeElement()
+	{
+		var key = getKey();
+		localStorage.removeItem(key);
+		console.log(key); //test
+		key++;
+		while (localStorage.getItem(key) != null)
+			{
+				localStorage.setItem(key - 1, localStorage.getItem(key));
+				localStorage.removeItem(key);
+				key++; 
+			}
+		console.log(key); //test
+		return (key);
+	}
+
+		function removeElementButton(key = 0)
+	{
+		localStorage.removeItem(key);
+		console.log(key); //test
+		key++;
+		while (localStorage.getItem(key) != null)
+			{
+				localStorage.setItem(key - 1, localStorage.getItem(key));
+				localStorage.removeItem(key);
+				key++; 
+			}
+		console.log(key); //test
+		window.location.reload()
+		return (key);
+	}
+
+	function removeAll()
+	{
+				var i = 0;
+		while (localStorage.getItem(i) != null)
+		{
+			localStorage.removeItem(i);
+			i++;
+		}
+	}
+
+	function getTable(){
+		var i = 0;
+		while (localStorage.getItem(i) != null)
+		{
+			j = localStorage.getItem(i);
+			document.getElementById('tache').innerHTML += '<li>' + j + '     ' +'<button type="button" onclick="removeElementButton('+i+')">Delete</button>' +'</li>';
+			console.log(j); //test
+			console.log(i); //test
+
+			i++;
+		} 
+		return (i);
+	}
+
+		function giveKey(i = 0){
+		j = 0;
+		while (j < i){j++;}
+		return (j); 
+	}
+
+	//removeAll(); //wipe all tab
+	i = getTable();
+
+</script>
+
+<form>
+	<h3>Ajouter quelle tache ?</h3>
+	<input type="text" name="add" id="add">
+	<button type="button" id="button" onclick="giveElement()">Planifier</button> 
+</form>
+<!--<form>
+	<h3>Supprimer quelle tache ?</h3>
+	<input type="text" id="delete">
+	<button type="button" onclick="removeElement()">Delete</button>
+</form>-->
+</body>
+</html>
